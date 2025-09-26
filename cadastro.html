@@ -165,6 +165,12 @@
                 modal.style.display = 'flex'; // Exibe o modal
             });
 
+             // Lógica para fechar o modal
+            modalBotaoVoltar.addEventListener('click', () => {
+                modal.style.display = 'none';
+                form.reset(); // Limpa o formulário
+            });
+
             // Lógica para o botão "Gerar JSON"
             btnGerarJson.addEventListener('click', () => {
                 const formData = new FormData(form);
@@ -179,11 +185,7 @@
                 alert("O JSON com os dados do formulário foi gerado no console do navegador (Pressione F12 para ver).");
             });
 
-            // Lógica para fechar o modal
-            modalBotaoVoltar.addEventListener('click', () => {
-                modal.style.display = 'none';
-                form.reset(); // Limpa o formulário
-            });
+           
         });
     </script>
 </body>
