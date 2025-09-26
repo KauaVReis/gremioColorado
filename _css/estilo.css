@@ -540,7 +540,12 @@ body {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     /* Sombra um pouco mais forte */
 }
-
+/* .galeria-grid-slide img:active {
+    transform: scale(3.08);
+    /* Leve zoom ao passar o mouse 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    /* Sombra um pouco mais forte 
+} */
 .carrossel-botao {
     position: absolute;
     top: 50%;
