@@ -11,6 +11,8 @@ function initializeModals() {
     const closeBtns = document.querySelectorAll('#modal-container .close-btn');
     const switchToRegister = document.getElementById('switchToRegister');
     const switchToLogin = document.getElementById('switchToLogin');
+    const formCadastro = document.getElementById('formCadastroModal');
+    const formLogin = document.getElementById('formLoginModal'); // Formulário de login
 
     const closeAllModals = () => {
         if (loginModal) loginModal.style.display = 'none';
@@ -43,9 +45,7 @@ function initializeModals() {
         }
     });
 
-    // Evento para fechar o modal de cadastro após o sucesso da validação
     window.addEventListener('closeActiveModal', closeAllModals);
-
 
     if (switchToRegister) {
         switchToRegister.addEventListener('click', (e) => {
@@ -62,11 +62,67 @@ function initializeModals() {
             loginModal.style.display = 'flex';
         });
     }
+
+    // Lógica de submissão do formulário de CADASTRO
+    if (formCadastro) {
+        formCadastro.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formValido = validaForm();
+
+            if (formValido) {
+                const formData = new FormData(formCadastro);
+                fetch('_php/processa_cadastro.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.status === 'success') {
+                            formCadastro.reset();
+                            closeAllModals();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro na requisição:', error);
+                        alert('Ocorreu um erro ao tentar se comunicar com o servidor.');
+                    });
+            }
+        });
+    }
+
+    // NOVA LÓGICA DE SUBMISSÃO DO FORMULÁRIO DE LOGIN
+    if (formLogin) {
+        formLogin.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(formLogin);
+
+            fetch('_php/processa_login.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Se o login for bem-sucedido, recarrega a página.
+                        // O PHP irá então mostrar a versão de "logado" do site.
+                        location.reload();
+                    } else {
+                        // Se houver um erro, mostra a mensagem.
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro na requisição de login:', error);
+                    alert('Ocorreu um erro ao tentar se comunicar com o servidor.');
+                });
+        });
+    }
 }
 
 /**
  * Valida o formulário de cadastro.
- * Retorna false para impedir o envio do formulário se houver erros.
+ * Retorna true se válido, false caso contrário.
  */
 function validaForm() {
     let formValido = true;
@@ -110,15 +166,7 @@ function validaForm() {
     if (turma.value.trim() === '') setError(turma, 'O campo turma é obrigatório.');
     if (esporte.value.trim() === '') setError(esporte, 'O campo esporte é obrigatório.');
 
-    if (formValido) {
-        alert('Cadastro realizado com sucesso! (simulação)');
-        document.getElementById('formCadastroModal').reset();
-        gerarJson(true); // O 'true' indica para baixar o arquivo
-
-        const closeModalEvent = new Event('closeActiveModal');
-        window.dispatchEvent(closeModalEvent);
-    }
-    return false;
+    return formValido;
 }
 
 /**
@@ -180,17 +228,40 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(html => {
                 containerModal.innerHTML = html;
                 initializeModals();
-                // Adiciona o listener ao botão Gerar JSON depois que o modal for carregado
                 const btnGerarJson = document.getElementById('btnGerarJson');
                 if (btnGerarJson) {
                     btnGerarJson.addEventListener('click', () => gerarJson(true));
+                }
+
+                const inputFoto = document.getElementById('fotoPerfil');
+                const displayNomeArquivo = document.getElementById('nomeArquivo');
+
+                if (inputFoto && displayNomeArquivo) {
+                    inputFoto.addEventListener('change', () => {
+                        if (inputFoto.files.length > 0) {
+                            // Se um ficheiro for selecionado, mostra o seu nome
+                            displayNomeArquivo.textContent = inputFoto.files[0].name;
+                        } else {
+                            // Se nenhum ficheiro for selecionado, volta ao texto padrão
+                            displayNomeArquivo.textContent = 'Nenhum arquivo selecionado';
+                        }
+                    });
+                }
+
+                // Verifica se a URL tem o parâmetro ?acao=registrar
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('acao') === 'registrar') {
+                    const registerModal = document.getElementById('registerModal');
+                    if (registerModal) {
+                        registerModal.style.display = 'flex';
+                    }
                 }
             })
             .catch(erro => console.error('Erro ao carregar os modais:', erro));
     }
 
     // --- LÓGICA ESPECÍFICA DO CARROSSEL ---
-      const trilho = document.querySelector('.carrossel-trilho');
+    const trilho = document.querySelector('.carrossel-trilho');
     if (!trilho) return; // Só executa se estiver na página da galeria
 
     const botaoProximo = document.getElementById('botaoProximo');
@@ -226,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
             atualizarBotoes();
         }
     });
-    
+
     // Inicia os botões na posição correta
     atualizarBotoes();
 });

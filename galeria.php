@@ -1,3 +1,4 @@
+<?php require_once '_php/verifica_login.php'; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -60,16 +61,19 @@
 
     <nav class="navbar">
         <div class="navbar-container">
-            <a href="index.html" class="navbar-logo">
+            <a href="index.php" class="navbar-logo">
                 <img src="_imagens/gremioColoradoLogo.png" alt="Logo Grêmio Colorado">
             </a>
             <ul class="navbar-menu">
-                <li><a href="index.html">Início</a></li>
-                <li><a href="galeria.html" class="active">Galeria</a></li>
-                <li><a href="calendario.html">Agenda</a></li>
+                <li><a href="index.php">Início</a></li>
+                <li><a href="galeria.php" class="active">Galeria</a></li>
+                <li><a href="calendario.php">Agenda</a></li>
             </ul>
-            <div class="navbar-login">
-                <a href="#" id="loginBtn">Login</a>
+            <div class="navbar-user-area">
+                <span class="welcome-message">Bem-vindo,
+                    <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>!</span>
+                <img src="_imagens/imagem%20(10).png" alt="Foto de Perfil" class="profile-pic">
+                <a href="_php/logout.php" class="logout-link">Sair</a>
             </div>
         </div>
     </nav>
@@ -152,7 +156,7 @@
 
 <script>
 
-    
+
     addEventListener('keydown', function (event) {
         if (event.key === "ArrowRight") { // Verifica se a tecla pressionada é "ArrowRight"
             document.getElementById("botaoProximo").click(); // Simula o clique no botão "Próximo"

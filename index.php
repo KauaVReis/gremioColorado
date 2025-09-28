@@ -1,3 +1,7 @@
+<?php
+// Inicia a sessão no topo de tudo. Essencial para verificar o estado de login.
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -17,28 +21,59 @@
 
     <nav class="navbar">
         <div class="navbar-container">
-            <a href="index.html" class="navbar-logo">
+            <a href="index.php" class="navbar-logo">
                 <img src="_imagens/gremioColoradoLogo.png" alt="Logo Grêmio Colorado">
             </a>
             <ul class="navbar-menu">
-                <li><a href="index.html" class="active">Início</a></li>
-                <li><a href="galeria.html">Galeria</a></li>
-                <li><a href="calendario.html">Agenda</a></li>
+                <li><a href="index.php" class="active">Início</a></li>
+                <li><a href="galeria.php">Galeria</a></li>
+                <li><a href="calendario.php">Agenda</a></li>
             </ul>
-            <div class="navbar-login">
-                <a href="#" id="loginBtn">Login</a>
-            </div>
+
+            <!-- ÁREA DINÂMICA DA NAVBAR -->
+            <?php if (isset($_SESSION['usuario_id'])):
+                $fotoPerfil = isset($_SESSION['usuario_localFoto']) && !empty($_SESSION['usuario_localFoto'])
+                    ? $_SESSION['usuario_localFoto']
+                    : '_imagens/imagem (10).png';
+                ?>
+                <div class="navbar-user-area">
+                    <span class="welcome-message">Bem-vindo,
+                        <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>!</span>
+                    <img src="<?php echo htmlspecialchars($fotoPerfil); ?>" alt="Foto de Perfil" class="profile-pic">
+                    <a href="_php/logout.php" class="logout-link">Sair</a>
+                </div>
+            <?php else: ?>
+                <!-- Mostra isto se o utilizador NÃO ESTIVER logado -->
+                <div class="navbar-login">
+                    <a href="#" id="loginBtn">Login</a>
+                </div>
+            <?php endif; ?>
+
         </div>
     </nav>
 
     <main class="main-container">
-        <section class="card-novidades">
-            <div>
-                <h2>Fique por dentro das novidades!</h2>
-                <p>Festas, Torneios, passeios e muito mais! Tudo em um lugar só!</p>
-            </div>
-            <a href="#" class="btn-vermelho" id="registerBtn">Acesse o site</a>
-        </section>
+
+        <!-- CARD DE NOVIDADES DINÂMICO -->
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <!-- Versão para utilizador logado -->
+            <section class="card-novidades">
+                <div>
+                    <h2>Você já faz parte da nossa comunidade!</h2>
+                    <p>Fique de olho na agenda para não perder nenhum evento.</p>
+                </div>
+                <a href="calendario.html" class="btn-vermelho">Ver próximos eventos</a>
+            </section>
+        <?php else: ?>
+            <!-- Versão para visitante -->
+            <section class="card-novidades">
+                <div>
+                    <h2>Fique por dentro das novidades!</h2>
+                    <p>Festas, Torneios, passeios e muito mais! Tudo em um lugar só!</p>
+                </div>
+                <a href="#" class="btn-vermelho" id="registerBtn">Acesse o site</a>
+            </section>
+        <?php endif; ?>
 
         <section class="secao-conteudo">
             <h3 class="titulo-secao">Galeria</h3>
@@ -94,7 +129,6 @@
 
     <!-- container das modais -->
     <div id="modal-container"></div>
-
 
 </body>
 
