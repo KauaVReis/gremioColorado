@@ -1,4 +1,6 @@
-<?php require_once '_php/verifica_login.php'; ?>
+<?php require_once '_php/verifica_login.php';
+$fotoPerfil = $_SESSION['usuario_localFoto'];
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -72,7 +74,7 @@
             <div class="navbar-user-area">
                 <span class="welcome-message">Bem-vindo,
                     <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>!</span>
-                <img src="_imagens/imagem%20(10).png" alt="Foto de Perfil" class="profile-pic">
+                    <img src="<?php echo htmlspecialchars($fotoPerfil); ?>" alt="Foto de Perfil" class="profile-pic">
                 <a href="_php/logout.php" class="logout-link">Sair</a>
             </div>
         </div>

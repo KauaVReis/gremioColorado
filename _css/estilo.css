@@ -749,3 +749,142 @@ body {
     font-size: 14px;
     color: var(--cor-cinza-escuro);
 }
+
+
+/* AREA DE ADMIN KAUÃ :> */
+/* O MENU É O MESMO QUE O MENU ANTIGO */
+.logo {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.admin-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.admin-container h1 {
+    color: var(--cor-vermelha);
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 40px;
+}
+
+.admin-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.admin-botao {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    background-color: var(--cor-cinza-escuro);
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.admin-botao:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+.admin-botao-icone {
+    background-color: var(--cor-dourada);
+    border-radius: 6px;
+    padding: 12px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    box-sizing: border-box;
+}
+
+.admin-botao-icone i {
+    font-size: 24px;
+    color: white;
+}
+
+.link-voltar {
+    font-weight: 700;
+    color: var(--cor-vermelha);
+    text-decoration: none;
+}
+
+/* --- ESTILOS DA PÁGINA DE LISTAR USUÁRIOS --- */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+    /* Adiciona scroll horizontal em telas pequenas */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tabela-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-usuarios th,
+.tabela-usuarios td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 14px;
+}
+
+.tabela-usuarios thead {
+    background-color: var(--cor-componente);
+    color: var(--cor-texto-claro);
+}
+
+.tabela-usuarios tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabela-usuarios tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.tabela-foto-perfil {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}

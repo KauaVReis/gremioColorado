@@ -28,26 +28,34 @@ session_start();
                 <li><a href="index.php" class="active">Início</a></li>
                 <li><a href="galeria.php">Galeria</a></li>
                 <li><a href="calendario.php">Agenda</a></li>
+                <li> <?php if (isset($_SESSION['nivel']) && $_SESSION['nivel'] == 1) { ?>
+                        <a href="_php/admin.php">Admin Panel</a>
+                    <?php }
+                ; ?>
+                </li>
             </ul>
 
             <!-- ÁREA DINÂMICA DA NAVBAR -->
-            <?php if (isset($_SESSION['usuario_id'])):
+            <?php if (isset($_SESSION['usuario_id'])) {
                 $fotoPerfil = isset($_SESSION['usuario_localFoto']) && !empty($_SESSION['usuario_localFoto'])
                     ? $_SESSION['usuario_localFoto']
                     : '_imagens/imagem (10).png';
                 ?>
                 <div class="navbar-user-area">
+
+
+
                     <span class="welcome-message">Bem-vindo,
                         <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>!</span>
                     <img src="<?php echo htmlspecialchars($fotoPerfil); ?>" alt="Foto de Perfil" class="profile-pic">
                     <a href="_php/logout.php" class="logout-link">Sair</a>
                 </div>
-            <?php else: ?>
+            <?php } else { ?>
                 <!-- Mostra isto se o utilizador NÃO ESTIVER logado -->
                 <div class="navbar-login">
                     <a href="#" id="loginBtn">Login</a>
                 </div>
-            <?php endif; ?>
+            <?php } ?>
 
         </div>
     </nav>
@@ -55,16 +63,16 @@ session_start();
     <main class="main-container">
 
         <!-- CARD DE NOVIDADES DINÂMICO -->
-        <?php if (isset($_SESSION['usuario_id'])): ?>
+        <?php if (isset($_SESSION['usuario_id'])) { ?>
             <!-- Versão para utilizador logado -->
             <section class="card-novidades">
                 <div>
                     <h2>Você já faz parte da nossa comunidade!</h2>
                     <p>Fique de olho na agenda para não perder nenhum evento.</p>
                 </div>
-                <a href="calendario.html" class="btn-vermelho">Ver próximos eventos</a>
+                <a href="calendario.php" class="btn-vermelho">Ver próximos eventos</a>
             </section>
-        <?php else: ?>
+        <?php } else { ?>
             <!-- Versão para visitante -->
             <section class="card-novidades">
                 <div>
@@ -73,7 +81,8 @@ session_start();
                 </div>
                 <a href="#" class="btn-vermelho" id="registerBtn">Acesse o site</a>
             </section>
-        <?php endif; ?>
+        <?php }
+        ; ?>
 
         <section class="secao-conteudo">
             <h3 class="titulo-secao">Galeria</h3>
@@ -82,7 +91,7 @@ session_start();
                 <img src="_imagens/imagem (8).png" alt="Imagem da galeria 2" class="imagem-destaque">
                 <img src="_imagens/imagem (15).png" alt="Imagem da galeria 3">
             </div>
-            <a href="galeria.html" class="btn-dourado">Ver galeria completa</a>
+            <a href="galeria.php" class="btn-dourado">Ver galeria completa</a>
         </section>
 
         <section class="secao-conteudo">
@@ -103,7 +112,7 @@ session_start();
                 <p class="texto-link">Veja todos eventos registrados</p>
                 <i class="fas fa-chevron-down icone-seta"></i>
             </div>
-            <a href="calendario.html" class="btn-dourado">Ir para Agenda</a>
+            <a href="calendario.php" class="btn-dourado">Ir para Agenda</a>
         </section>
     </main>
 
