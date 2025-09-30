@@ -618,15 +618,15 @@ body {
     opacity: 0;
     pointer-events: none;
 }
-
+/*
 .calendario-wrapper {
     flex: 0 0 700px;
-    /* Largura fixa para o calendário */
+    /* Largura fixa para o calendário 
 }
 
 .eventos-wrapper {
     flex: 1;
-    /* Ocupa o restante do espaço */
+    /* Ocupa o restante do espaço 
     border-left: 1px solid #e0e0e0;
     padding-left: 30px;
 }
@@ -686,7 +686,7 @@ body {
 .dias-grid .dia {
     height: 60px;
     line-height: 60px;
-    /* Centraliza o número verticalmente */
+    /* Centraliza o número verticalmente 
     cursor: pointer;
     border-radius: 50%;
     transition: background-color 0.3s, color 0.3s;
@@ -703,7 +703,7 @@ body {
 
 .dia.com-evento {
     background-color: rgba(229, 50, 42, 0.15);
-    /* Fundo vermelho bem claro */
+    /* Fundo vermelho bem claro 
     font-weight: bold;
 }
 
@@ -727,7 +727,7 @@ body {
 
 #eventos-lista {
     height: 400px;
-    /* Altura fixa para a lista de eventos */
+    /* Altura fixa para a lista de eventos 
     overflow-y: auto;
 }
 
@@ -749,7 +749,7 @@ body {
     font-size: 14px;
     color: var(--cor-cinza-escuro);
 }
-
+*/
 
 /* AREA DE ADMIN KAUÃ :> */
 /* O MENU É O MESMO QUE O MENU ANTIGO */
